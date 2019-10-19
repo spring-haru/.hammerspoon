@@ -1,5 +1,5 @@
 --###### Highlighting for Karabiner-Elements ######
-require("Boarders_for_KE")
+require("Borders_for_KE")
 
 --###### Resizing, moving and snapping Windows ######
 require("Win_Management")
@@ -14,7 +14,7 @@ require("hs.alert")
 --hs.alert.defaultStyle.textFont  = ".AppleSystemUIFont"
 
 --##### Reload config #####
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, 'R', function()
+hs.hotkey.bind({"ctrl", "alt", "shift"}, 'R', function()
   hs.reload()
 end)
 hs.alert.show("Config loaded")

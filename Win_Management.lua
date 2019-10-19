@@ -1,61 +1,44 @@
 -- Window Management
 
--- ###### Nullify the key ######################### {{{1
---local YEN = 0x5d
---winman:bind({}, "YEN", function()
-    --keyStroke({}, nil)
---end)
--- }}}1
-
 -- ###### Indicator ############################### {{{1
---function push(x, y, w, h)
-	--local win = hs.window.focusedWindow()
-	--local f = win:frame()
-	--local screen = win:screen()
-	--local max = screen:frame()
+--local win = hs.window.focusedWindow()
+--local screen = win:screen()
+--local max = screen:frame()
 
-	--f.x = max.x + (max.w*x)
-	--f.y = max.y + (max.h*y)
-	--f.w = max.w*w
-	--f.h = max.h*h
-	--win:setFrame(f)
---end
 
-indicatorWin = nil
+--- Empy Border
+indicatorWIN = hs.canvas.new{x=0, y=0, h=1000, w=10000}:appendElements({
+                type = "rectangle",
+                action="skip"
+                })
 
-function indicatorWin_ON()
-    if indicatorWin then
-        indicatorWin:delete()
-    end
-	-- For x and y: use 0 to expand fully in that dimension, 0.5 to expand halfway
-	-- For w and h: use 1 for full, 0.5 for half
-	x = 0.05
-	y = 0.05
-	w = 0.9
-	h = 0.9
 
-	win = hs.window.focusedWindow()
-	f = win:frame()
-	screen = win:screen()
-	max = screen:frame()
-
-	fx = max.x + (max.w*x)
-	fy = max.y + (max.h*y)
-	fw = max.w*w
-	fh = max.h*h
-
-    indicatorWin = hs.drawing.rectangle(hs.geometry.rect(fx, fy, fw, fh))
-    indicatorWin:setStrokeColor({["red"]=0,["blue"]=0,["green"]=1,["alpha"]=1})
-    indicatorWin:setFill(false)
-    indicatorWin:setStrokeWidth(10)
-    indicatorWin:show()
+--- Green Border On
+indicatorWin_ON = function()
+    local win = hs.window.focusedWindow()
+    local screen = win:screen()
+    local max = screen:frame()
+    local f = win:frame()
+    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:replaceElements({
+        type = "rectangle",
+        action="stroke",
+        strokeWidth=5.0,
+        strokeColor= {green=1.0},
+        frame = {x=f.x, y=f.y-23, h=f.h, w=f.w}
+        })
 end
 
--- Define the function to delete the Indicator
-function indicatorWin_OFF()
-    if indicatorWin then
-        indicatorWin:delete()
-    end
+
+--- Green Border OFF
+indicatorWin_OFF = function()
+    local win = hs.window.focusedWindow()
+    local screen = win:screen()
+    local max = screen:frame()
+    local f = win:frame()
+    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:replaceElements({
+        type = "rectangle",
+        action="skip",
+        })
 end
 
 -- }}}1
@@ -64,16 +47,19 @@ end
 local winman = hs.hotkey.modal.new()
 
 start_winman = hs.hotkey.bind({"ctrl"}, "w", function()
-	winman:enter()
-	indicatorWin_ON()
-	hs.alert.show(hs.application.frontmostApplication():title() .. "", 600)
+    winman:enter()
+    indicatorWIN:delete()
+    indicatorWin_ON()
+    indicatorWIN:show()
+    hs.alert.show(hs.application.frontmostApplication():title() .. "", 600)
 end)
 
 winman:bind({"ctrl"}, 'w', function()
     winman:exit()
-	--hs.alert.show('WinMan OUT')
-	hs.alert.closeAll()
-	indicatorWin_OFF()
+    indicatorWIN:delete()
+    indicatorWin_OFF()
+    indicatorWIN:show()
+    hs.alert.closeAll()
 end)
 -- }}}1
 
@@ -245,6 +231,9 @@ winman:bind({"ctrl"}, "c", function() push(0.05,0.05,0.9,0.9) end)
 
 -- Fullscreen
 winman:bind({"ctrl"}, "f", function() push(0,0,1,1) end)
+
+-- LaTeX (MacBook)
+winman:bind({"ctrl"}, "t", function() push(0,0,0.83,1) end)
 
 -- Chat windows (arrange in grid of 5 on right hand of screen)
 --winman:bind(hyper, "1", function() push(0.8,0,0.2,0.2) end)

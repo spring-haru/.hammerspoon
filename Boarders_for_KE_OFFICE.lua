@@ -75,27 +75,25 @@ function indicatorOFF()
 end
 
 
--- Red Boarders ON
-hs.hotkey.bind({"ctrl","shift", "alt"}, "1", function()
+-- Boarders ON
+hs.hotkey.bind({"ctrl","shift", "alt", "cmd"}, "1", function()
 	indicatorON(red)
 end)
 
--- Red Boarders OFF
-hs.hotkey.bind({"ctrl","shift", "alt"}, '0', function()
-	indicatorOFF()
+-- Boarders OFF
+hs.hotkey.bind({"ctrl","shift", "alt", "cmd"}, '0', function()
+	indicatorOFF(red)
 end)
 
-
 -- Blue Boarders ON
-hs.hotkey.bind({"ctrl","shift", "alt"}, "2", function()
+hs.hotkey.bind({"ctrl","shift", "alt", "cmd"}, "2", function()
 	indicatorON(blue)
 end)
 
 -- Blue Boarders OFF
-hs.hotkey.bind({"ctrl","shift", "alt"}, '9', function()
+hs.hotkey.bind({"ctrl","shift", "alt", "cmd"}, '9', function()
 	indicatorOFF(blue)
 end)
-
 
 -- Restart vim binding and erase the Indicator once focus moves
 all_win = hs.window.filter.new(nil)

@@ -1,13 +1,8 @@
 -- Window Management
 
 -- ###### Indicator ############################### {{{1
---local win = hs.window.focusedWindow()
---local screen = win:screen()
---local max = screen:frame()
-
-
---- Empy Border
-indicatorWIN = hs.canvas.new{x=0, y=0, h=1000, w=10000}:appendElements({
+--- Dummy Border
+indicatorWIN = hs.canvas.new{x=0, y=0, h=0, w=0}:appendElements({
                 type = "rectangle",
                 action="skip"
                 })
@@ -19,7 +14,9 @@ indicatorWin_ON = function()
     local screen = win:screen()
     local max = screen:frame()
     local f = win:frame()
-    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:replaceElements({
+
+    -- redefine indicatorWIN
+    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:appendElements({
         type = "rectangle",
         action="stroke",
         strokeWidth=5.0,
@@ -35,7 +32,9 @@ indicatorWin_OFF = function()
     local screen = win:screen()
     local max = screen:frame()
     local f = win:frame()
-    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:replaceElements({
+
+    -- redefine indicatorWIN
+    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:appendElements({
         type = "rectangle",
         action="skip",
         })

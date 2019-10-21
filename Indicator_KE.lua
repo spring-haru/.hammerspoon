@@ -19,23 +19,22 @@ local border_width = 4
 normalON_border = function()
     border:delete()
 
-    local win = window.focusedWindow()
-    local screen = win:screen()
-    local max = screen:frame()
+    local maxF = hs.screen.mainScreen():fullFrame()
+    local max = hs.screen.mainScreen():frame()
 
     -- redefine border
-    border = canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:appendElements({
+    border = canvas.new{x=maxF.x, y=maxF.y, h=maxF.h, w=maxF.w}:appendElements({
         type = "rectangle",
         action="strokeAndFill",
         strokeWidth=0.0001,
         fillColor= {red=1.0},
-        frame = {x=max.x, y=max.y-23, h=border_width, w=max.w}
+        frame = {x=max.x, y=max.y, h=border_width, w=max.w}
         },{
         type = "rectangle",
         action="strokeAndFill",
         strokeWidth=0.0001,
         fillColor= {red=1.0},
-        frame = {x=max.x, y=max.h-border_width, h=border_width, w=max.w}
+        frame = {x=maxF.x, y=maxF.h-border_width, h=border_width, w=maxF.w}
         })
     border:show()
 end
@@ -45,23 +44,22 @@ end
 visualON_border = function()
     border:delete()
 
-    local win = window.focusedWindow()
-    local screen = win:screen()
-    local max = screen:frame()
+    local maxF = hs.screen.mainScreen():fullFrame()
+    local max = hs.screen.mainScreen():frame()
 
     -- redefine border
-    border = canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:appendElements({
+    border = canvas.new{x=maxF.x, y=maxF.y, h=maxF.h, w=maxF.w}:appendElements({
         type = "rectangle",
         action="strokeAndFill",
         strokeWidth=0.0001,
         fillColor= {blue=1.0},
-        frame = {x=max.x, y=max.y-23, h=border_width, w=max.w}
+        frame = {x=max.x, y=max.y, h=border_width, w=max.w}
         },{
         type = "rectangle",
         action="strokeAndFill",
         strokeWidth=0.0001,
         fillColor= {blue=1.0},
-        frame = {x=max.x, y=max.h-border_width, h=border_width, w=max.w}
+        frame = {x=maxF.x, y=maxF.h-border_width, h=border_width, w=maxF.w}
         })
     border:show()
 end
@@ -70,12 +68,11 @@ end
 indicatorOFF_border = function()
     border:delete()
 
-    local win = window.focusedWindow()
-    local screen = win:screen()
-    local max = screen:frame()
+    local maxF = hs.screen.mainScreen():fullFrame()
+    local max = hs.screen.mainScreen():frame()
 
     -- redefine border
-    border = canvas.new{x=max.x, y=max.y, h=border_width, w=max.w}:appendElements({
+    border = canvas.new{x=maxF.x, y=maxF.y, h=border_width, w=maxF.w}:appendElements({
        type = "segments",
        action="skip"
        },{
@@ -127,28 +124,28 @@ myMenu = hs.menubar.new():setTitle("Initial"):setIcon(
 
 normalON_menu = function()
     myMenu:removeFromMenuBar()
-    myMenu = hs.menubar.new():setTitle("N"):setIcon(
+    myMenu = hs.menubar.new():setIcon(
         modeNormal, false)
     end
 
 
 normalOFF_menu = function()
     myMenu:removeFromMenuBar()
-    myMenu = hs.menubar.new():setTitle("I"):setIcon(
+    myMenu = hs.menubar.new():setIcon(
         modeInsert, false)
     end
 
 
 visualON_menu = function()
     myMenu:removeFromMenuBar()
-    myMenu = hs.menubar.new():setTitle("V"):setIcon(
+    myMenu = hs.menubar.new():setIcon(
         modeVisual, false)
     end
 
 
 visualOFF_menu = function()
     myMenu:removeFromMenuBar()
-    myMenu = hs.menubar.new():setTitle("I"):setIcon(
+    myMenu = hs.menubar.new():setIcon(
         modeInsert, false)
     end
 

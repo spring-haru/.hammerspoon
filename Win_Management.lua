@@ -10,31 +10,27 @@ indicatorWIN = hs.canvas.new{x=0, y=0, h=0, w=0}:appendElements({
 
 --- Green Border On
 indicatorWin_ON = function()
-    local win = hs.window.focusedWindow()
-    local screen = win:screen()
-    local max = screen:frame()
-    local f = win:frame()
+    local maxF = hs.screen.mainScreen():fullFrame()
+    local f = hs.window.focusedWindow():frame()
 
     -- redefine indicatorWIN
-    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:appendElements({
+    indicatorWIN = hs.canvas.new{x=maxF.x, y=maxF.y, h=maxF.h, w=maxF.w}:appendElements({
         type = "rectangle",
         action="stroke",
-        strokeWidth=5.0,
+        strokeWidth=4.0,
         strokeColor= {green=1.0},
-        frame = {x=f.x, y=f.y-23, h=f.h, w=f.w}
+        frame = {x=f.x, y=f.y, h=f.h, w=f.w}
         })
 end
 
 
 --- Green Border OFF
 indicatorWin_OFF = function()
-    local win = hs.window.focusedWindow()
-    local screen = win:screen()
-    local max = screen:frame()
-    local f = win:frame()
+    local maxF = hs.screen.mainScreen():fullFrame()
+    local f = hs.window.focusedWindow():frame()
 
     -- redefine indicatorWIN
-    indicatorWIN = hs.canvas.new{x=max.x, y=max.y, h=max.h, w=max.w}:appendElements({
+    indicatorWIN = hs.canvas.new{x=maxF.x, y=maxF.y, h=maxF.h, w=maxF.w}:appendElements({
         type = "rectangle",
         action="skip",
         })
@@ -259,7 +255,3 @@ winman:bind({"ctrl"}, "t", function() push(0,0,0.83,1) end)
 -- }}}2
 
 -- }}}1
-
--- vim: foldmethod=marker
--- vim: foldcolumn=3
--- vim: foldlevel=0
